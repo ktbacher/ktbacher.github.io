@@ -165,8 +165,8 @@ function draw() {
     hourly(conditions);
 
   } else {
-    textSize(40);
-    text('Loading…', aspect.width/2, aspect.height/2);
+    textSize(24);
+    text('This may take a few seconds...', aspect.width/2, aspect.height/2);
   }
   
   textSize(12);
