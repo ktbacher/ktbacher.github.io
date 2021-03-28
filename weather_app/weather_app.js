@@ -81,12 +81,11 @@ function draw() {
     fill('white');
     noStroke();
   
-    let conditions = w.getSummary().toLowerCase();
+    let conditions = w.getSummary();
 
     let wind = w.getWindSpeed();
-    //wind = 10;
     
-    if (conditions.includes("drizzle") || conditions.includes("rain")) {
+    if (conditions.includes("Drizzle") || conditions.includes("Rain")) {
       background(rainBackground);
       
       maxSize = map(wind, 0, 40, 10000, 3000);
@@ -116,10 +115,44 @@ function draw() {
         }
       }
       rainSizes.forEach(pt => rain(pt.x, pt.y, pt.size));
-    } else if (conditions.includes("snow")) {
+    } else if (conditions.includes("Snow")) {
       background(snowBackground);
-      snow(aspect.width/2, aspect.height/2, 180);
-    } else if (conditions.includes("cloudy") || conditions.includes("foggy")|| conditions.includes("overcast")) {
+      let intensity = w.getPrecipIntensity();
+
+      let numFlakes = round(map(intensity, 0, 0.5, 0, 1000));
+
+      delay = map(numFlakes, 1, 1000, 2000, 50);
+
+      while (snowSizes.length < numFlakes) {
+        let xVal = random(0, aspect.width);
+        let yVal = random(0, aspect.height);
+        snowSizes.push({size:8, x:xVal, y:yVal}); 
+      }
+      if (snowSizes.length > numFlakes) {
+        let toDelete=-1;
+        snowSizes = snowSizes.map((obj,i) => {
+          if (obj.y > aspect.height && toDelete  == -1) {
+            toDelete = i;
+            return obj;
+          } else {
+            return {x: random(0, aspect.width), y: 0, size: obj.size};
+          }
+          let xShift = random(-wind/2,wind);
+          return {x: (obj.x+xShift)%aspect.width, y: obj.y+5, size: obj.size};
+        });
+        if (toDelete != -1) {
+          snowSizes.splice(toDelete,1);
+        }
+      }
+      snowSizes = snowSizes.map(obj => {
+        if (obj.y > aspect.height) {
+          return {x: random(0, aspect.width), y: 0, size: obj.size};
+        }
+        let xShift = random(-wind/2,wind);
+        return {x: (obj.x+xShift)%aspect.width, y: obj.y+5, size: obj.size};
+      });
+      snowSizes.forEach(pt => snow(pt.x, pt.y, pt.size));
+    } else if (conditions.includes("Cloudy") || conditions.includes("Foggy")|| conditions.includes("Overcast")) {
       background(cloudBackground);
 
       let cloudCover = round(w.getCloudCover()*100);
@@ -142,18 +175,18 @@ function draw() {
     } else {
       background(yellow2);
 
-      while (sunSizes.length < 100) {
-        let wide = random(10,120);
-        let angle = random(0, PI);
+      while (sunSizes.length < 200) {
+        let wide = random(10,100);
+        let angle = random(0, 2*PI);
         let col = random([color('yellow'), color('white'),yellow, yellow2, yellow3, yellow4, yellow5, yellow6]);
         sunSizes.push({ wide: wide, ang: angle, col: col});
       }
       sunSizes = sunSizes.map(pt => {
-        let newW = pt.wide + random(-wind, wind);
-        if (newW < 0) {
-          newW += wind; 
-        } else if (newW >= 40) {
-         newW -= wind; 
+        let newW = pt.wide + random(-wind/2, wind/2);
+        if (newW <= 0) {
+          newW += wind/2; 
+        } else if (newW >= 100) {
+         newW -= wind/2; 
         }
         return {wide: newW, ang:pt.ang, col:pt.col};
       });
@@ -166,7 +199,7 @@ function draw() {
 
   } else {
     textSize(24);
-    text('This may take a few seconds...', aspect.width/2, aspect.height/2);
+    text("This may take a few seconds...", aspect.width/2, aspect.height/2);
   }
   
   textSize(12);
@@ -175,17 +208,20 @@ function draw() {
 }
 
 function sun(w, ang, col) {
-  col.setAlpha(35);
+  col.setAlpha(20);
   fill(col);
+  push();
+  translate(aspect.width/2, aspect.height*0.5);
   push();
   rotate(ang);
   triangle(-50, 0, aspect.height+aspect.width, -w, aspect.height+aspect.width, w);
+  pop();
   pop();
 }
 
 function rain(cx, cy, size) {
   for(let i = size/30; i>0; i=i-30) {
-    let maxOp = map(size, 0, maxSize, 255, 1);
+    let maxOp = map(size, 0, maxSize, 80, 1);
     stroke(0, map(i, 0, maxSize/30, maxOp, 0));
     rainColor.setAlpha(map(i, 0, maxSize/30, maxOp, 0));
     fill(rainColor);
@@ -202,14 +238,19 @@ function cloudy(cx, cy, size) {
 }
 
 function snow(cx,cy,size) {
-  fill(snowColor).setAlpha(255);
+  snowColor.setAlpha(150);
+  fill(snowColor);
   circle(cx,cy, size);
 }
 
 function current(conditions) {
   textStyle(BOLD);
-
-  if (conditions.includes('clear') || conditions.includes('sunny')) {
+  //stroke('black');
+  //fill(textColor);
+  //fill(darkGrey);
+  //fill(midGrey);
+  //fill(greyBlue);
+  if (conditions.includes('Clear') || conditions.includes('Sun')) {
     yellow5.setAlpha(255);
     fill(yellow5);
   } else {
@@ -219,6 +260,8 @@ function current(conditions) {
   textAlign(LEFT, TOP);
   
   textSize(66);  // big text
+  // show the temperature in degrees
+  //text("NOW", 20, 20);
   text(w.getTime().hourMinute(), 20, 20);
   
   
@@ -234,17 +277,21 @@ function current(conditions) {
   textStyle(BOLD);
   textSize(58);  // big text
   // show the temperature in degrees
+  //text(temp+ "F", aspect.width-20, 20);
   text(temp+ "F", aspect.width-20, 47);
   
   textStyle(ITALIC);
   textSize(30);
+  //text(w.getSummary(), aspect.width-20, 68);
   text(w.getSummary(), aspect.width-20, 108);
   
   textSize(22);
   textStyle(NORMAL);
+  //text("Wind "+w.getWindSpeed()+ " mph", aspect.width-20, 97);
   text("Wind "+w.getWindSpeed()+ " mph", aspect.width-20, 145);
   
   textSize(18);
+  //text("Rain "+formatPercent(w.getPrecipProbability()), aspect.width-20, 120);
   text("Rain "+formatPercent(w.getPrecipProbability()), aspect.width-20, 176);
   
 }
@@ -281,19 +328,45 @@ function hourly(conditions) {
   
   let fillCol;
   let highlightCol;
-  if (conditions.includes('clear')) {
+  if (conditions.includes('Clear') || conditions.includes('Snow')) {
+    //lightBlue.setAlpha(200);
+    
+    //fill(lightBlue);
+    //lightBlue.setAlpha(220);
+    //fillCol = lightBlue;
+    //greyBlue.setAlpha(200);
+    //fillCol = greyBlue;
+    
+    //fillCol = color(150, 150, 160, 200); // too flat on other backgrounds but good on clear
+    //fillCol = color(150, 150, 160, 200);
     midGrey.setAlpha(200);
     fillCol = midGrey;
     
     yellow5.setAlpha(180);
     highlightCol = yellow5;
   } else {
+    //fill(240,240,245, 200);
+    //fillCol = color(240,240,245, 200);
+    
     fillCol = color(200,200,205, 100); // best
+    //fillCol = color(150, 150, 160, 200);
+    //midGrey.setAlpha(180);
+    //fillCol = midGrey;
 
     lightBlue.setAlpha(220);
+    //fillCol = lightBlue;
     highlightCol = lightBlue;
   }
   
+  //grey.setAlpha(100);
+  //fill(grey);
+  //grey.setAlpha(255);
+  
+  //greyBlue.setAlpha(150);
+  //fill(greyBlue);
+  //greyBlue.setAlpha(255);
+  
+  //rect(aspect.width-wd-20, aspect.height-ht-20, wd, ht);
   fill('white');
   let y = aspect.height-ht-20;
   let x = aspect.width-wd-20;
@@ -313,6 +386,8 @@ function hourly(conditions) {
     
     y+= ht/numHours;
     
+    //noStroke();
+    //fill('white');
     fill(textColor);
     textAlign(LEFT, CENTER);
     textSize(24);
@@ -373,6 +448,8 @@ function runIcon(cx, cy, size) {
   //fill('black');
   fill(darkGrey);
   circle(cx,cy-size*0.4, size*0.25);
+  
+  //stroke('black');
   
   stroke(darkGrey);
   //back
