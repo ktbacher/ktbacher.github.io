@@ -102,6 +102,8 @@ function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
   
   imageMode(CENTER);
+
+  textFont(font);
 }
 
 
