@@ -70,21 +70,21 @@ let iconLabels = ["King Arthur", "The First Castle", "The Peasant Dennis", "The 
 
 
 function preload() {
-  crownImg = loadImage('assets/crown.png');
+  crownImg = loadImage('assets/arthur.png');
   castleImg = loadImage('assets/castle.png');
-  leftFootImg = loadImage('assets/leftFoot.png');
-  rightFootImg = loadImage('assets/rightFoot.png');
+  leftFootImg = loadImage('assets/left_foot.png');
+  rightFootImg = loadImage('assets/right_foot.png');
   manImg = loadImage('assets/dude.png');
-  blackKnightImg = loadImage('assets/black_knight.png');
+  blackKnightImg = loadImage('assets/bl_knight.png');
   grailImg = loadImage('assets/grail.png');
   witchImg = loadImage('assets/witch.png');
   giantImg = loadImage('assets/3headedGiant.png');
-  niImg = loadImage('assets/ni.png');
-  timImg = loadImage('assets/tim.png');
-  bridgeImg = loadImage('assets/bridge.png');
+  niImg = loadImage('assets/ni_knight.png');
+  timImg = loadImage('assets/tim_enchantor.png');
+  bridgeImg = loadImage('assets/death_bridge.png');
   shatterImg = loadImage('assets/shatter.png');
   rabbitImg = loadImage('assets/rabbit.png');
-  caveImg = loadImage('assets/cave.png');
+  caveImg = loadImage('assets/cave_agh.png');
   beastImg = loadImage('assets/monster.png');
   shrubberyImg = loadImage('assets/shrubbery.png');
   quoteImg = loadImage('assets/quotebubble.png');
