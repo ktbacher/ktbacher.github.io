@@ -70,29 +70,29 @@ let iconLabels = ["King Arthur", "The First Castle", "The Peasant Dennis", "The 
 
 
 function preload() {
-  crownImg = loadImage('./assets/crown.png');
-  castleImg = loadImage('./assets/castle.png');
-  leftFootImg = loadImage('./assets/leftFoot.png');
-  rightFootImg = loadImage('./assets/rightFoot.png');
-  manImg = loadImage('./assets/dude.png');
-  blackKnightImg = loadImage('./assets/Black_Knight2.png');
-  grailImg = loadImage('./assets/grail.png');
-  witchImg = loadImage('./assets/witch.png');
-  giantImg = loadImage('./assets/3headedGiant.png');
-  niImg = loadImage('./assets/Ni.png');
-  timImg = loadImage('./assets/Tim.png');
-  bridgeImg = loadImage('./assets/Bridge2.png');
-  shatterImg = loadImage('./assets/shatter.png');
-  rabbitImg = loadImage('./assets/rabbit.png');
-  caveImg = loadImage('./assets/cave.png');
-  beastImg = loadImage('./assets/monster.png');
-  shrubberyImg = loadImage('./assets/shrubbery.png');
-  quoteImg = loadImage('./assets/quotebubble.png');
-  quoteLeft = loadImage('./assets/quoteleft.png');
+  crownImg = loadImage('assets/crown.png');
+  castleImg = loadImage('assets/castle.png');
+  leftFootImg = loadImage('assets/leftFoot.png');
+  rightFootImg = loadImage('assets/rightFoot.png');
+  manImg = loadImage('assets/dude.png');
+  blackKnightImg = loadImage('assets/Black_Knight2.png');
+  grailImg = loadImage('assets/grail.png');
+  witchImg = loadImage('assets/witch.png');
+  giantImg = loadImage('assets/3headedGiant.png');
+  niImg = loadImage('assets/Ni.png');
+  timImg = loadImage('assets/Tim.png');
+  bridgeImg = loadImage('assets/Bridge2.png');
+  shatterImg = loadImage('assets/shatter.png');
+  rabbitImg = loadImage('assets/rabbit.png');
+  caveImg = loadImage('assets/cave.png');
+  beastImg = loadImage('assets/monster.png');
+  shrubberyImg = loadImage('assets/shrubbery.png');
+  quoteImg = loadImage('assets/quotebubble.png');
+  quoteLeft = loadImage('assets/quoteleft.png');
   
-  font = loadFont("./data/PatrickHand-Regular.ttf");
+  font = loadFont("data/PatrickHand-Regular.ttf");
   
-  coconuts = loadSound('./audio/coconuts_noA.mp3');
+  coconuts = loadSound('audio/coconuts_noA.mp3');
   
 }
 
