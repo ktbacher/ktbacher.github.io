@@ -75,13 +75,13 @@ function preload() {
   leftFootImg = loadImage('assets/leftFoot.png');
   rightFootImg = loadImage('assets/rightFoot.png');
   manImg = loadImage('assets/dude.png');
-  blackKnightImg = loadImage('assets/Black_Knight2.png');
+  blackKnightImg = loadImage('assets/black_knight.png');
   grailImg = loadImage('assets/grail.png');
   witchImg = loadImage('assets/witch.png');
   giantImg = loadImage('assets/3headedGiant.png');
-  niImg = loadImage('assets/Ni.png');
-  timImg = loadImage('assets/Tim.png');
-  bridgeImg = loadImage('assets/Bridge2.png');
+  niImg = loadImage('assets/ni.png');
+  timImg = loadImage('assets/tim.png');
+  bridgeImg = loadImage('assets/bridge.png');
   shatterImg = loadImage('assets/shatter.png');
   rabbitImg = loadImage('assets/rabbit.png');
   caveImg = loadImage('assets/cave.png');
