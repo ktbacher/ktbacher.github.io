@@ -1,6 +1,6 @@
 let solution = [
   {
-    title: "Segment of a Process",
+    title: "Part of Process",
     ans: new Set(["Cycle", "Phase", "Round", "Stage"]),
   },
   {
@@ -8,11 +8,11 @@ let solution = [
     ans: new Set(["Cygnus", "Gemini", "Orion", "Pegasus"]),
   },
   {
-    title: "Spirals in Nature",
+    title: "Spirals",
     ans: new Set(["Cyclone", "Galaxy", "Snail", "Sunflower"]),
   },
   {
-    title: "Associated with 'ONE'",
+    title: "Relates to 'ONE'",
     ans: new Set(["Cyclops", "Monologue", "Solitaire", "Unicycle"]),
   },
 ];
@@ -47,7 +47,8 @@ let missesRemaining = 4;
 const w = window.innerWidth;
 const h = window.innerHeight;
 
-const sqSize = h / 12;
+const sqSize = h / 11;
+const margin = 5;
 
 let board = [
   "Sunflower",
@@ -166,9 +167,9 @@ function draw() {
   fill("black");
   text("Connections", w / 2, 35);
   let y = 100;
-  let xStart = w / 2 - (sqSize + 10) * 2 + (sqSize + 10) / 2;
+  let xStart = w / 2 - (sqSize + margin) * 2 + (sqSize + margin) / 2;
   let x = xStart;
-  textSize(12);
+  textSize(10);
   let solutionsGuessed = [];
   let numCorrect = 0;
 
@@ -176,11 +177,11 @@ function draw() {
     textAlign(RIGHT, CENTER);
     x = xStart;
     if (guess.result === guessResult.CLOSE) {
-      text("1 away", x - sqSize, y);
+      text("1 away", x - sqSize / 2 - margin, y);
     } else if (guess.result === guessResult.WRONG) {
-      text("X", x - sqSize, y);
+      text("X", x - sqSize / 2 - margin, y);
     } else if (guess.result === guessResult.CORRECT) {
-      text(solution[guess.solution].title, x - sqSize, y);
+      text(solution[guess.solution].title, x - sqSize / 2 - margin, y);
       solutionsGuessed.push(guess.solution);
       numCorrect += 1;
     }
@@ -190,15 +191,15 @@ function draw() {
       rect(x, y, sqSize, sqSize);
       fill("black");
       text(word, x, y);
-      x += sqSize + 10;
+      x += sqSize + margin;
     }
-    y += sqSize + 10;
+    y += sqSize + margin;
   }
 
   if (missesRemaining <= 0) {
     text("Game over! Solution:", w / 2, y);
 
-    y += sqSize + 10;
+    y += sqSize + margin;
 
     solutionsRemaining = [0, 1, 2, 3].filter(
       (solInd) => !solutionsGuessed.includes(solInd)
@@ -215,9 +216,9 @@ function draw() {
         rect(x, y, sqSize, sqSize);
         fill("black");
         text(item, x, y);
-        x += sqSize + 10;
+        x += sqSize + margin;
       });
-      y += sqSize + 10;
+      y += sqSize + margin;
     });
   } else {
     for (let i = 0; i < board.length / 4; i++) {
@@ -238,9 +239,9 @@ function draw() {
         rect(x, y, sqSize, sqSize);
         fill("black");
         text(item, x, y);
-        x += sqSize + 10;
+        x += sqSize + margin;
       }
-      y += sqSize + 10;
+      y += sqSize + margin;
     }
     x = w / 2 - 30;
     for (let i = 0; i < missesRemaining; i++) {
