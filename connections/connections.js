@@ -47,7 +47,7 @@ let missesRemaining = 4;
 const w = window.innerWidth;
 const h = window.innerHeight;
 
-const sqSize = h / 15;
+const sqSize = h / 12;
 
 let board = [
   "Sunflower",
@@ -165,10 +165,10 @@ function draw() {
   textSize(40);
   fill("black");
   text("Connections", w / 2, 35);
-  let y = 200;
+  let y = 100;
   let xStart = w / 2 - (sqSize + 10) * 2 + (sqSize + 10) / 2;
   let x = xStart;
-  textSize(20);
+  textSize(12);
   let solutionsGuessed = [];
   let numCorrect = 0;
 
@@ -176,11 +176,11 @@ function draw() {
     textAlign(RIGHT, CENTER);
     x = xStart;
     if (guess.result === guessResult.CLOSE) {
-      text("1 away", x - sqSize / 2, y);
+      text("1 away", x - sqSize, y);
     } else if (guess.result === guessResult.WRONG) {
-      text("X", x - sqSize / 2, y);
+      text("X", x - sqSize, y);
     } else if (guess.result === guessResult.CORRECT) {
-      text(solution[guess.solution].title, x - sqSize / 2, y);
+      text(solution[guess.solution].title, x - sqSize, y);
       solutionsGuessed.push(guess.solution);
       numCorrect += 1;
     }
@@ -200,7 +200,7 @@ function draw() {
 
     y += sqSize + 10;
 
-    solutionsRemaining = [0, 1, 2, 4].filter(
+    solutionsRemaining = [0, 1, 2, 3].filter(
       (solInd) => !solutionsGuessed.includes(solInd)
     );
 
@@ -210,10 +210,11 @@ function draw() {
       let sol = solution[solInd];
       text(sol.title, x - sqSize, y);
       sol.ans.forEach((item) => {
+        textAlign(CENTER, CENTER);
         fill(getColor(guessResult.CORRECT, solInd));
         rect(x, y, sqSize, sqSize);
         fill("black");
-        text(item);
+        text(item, x, y);
         x += sqSize + 10;
       });
       y += sqSize + 10;
@@ -249,7 +250,7 @@ function draw() {
     }
     if (numCorrect === 4) {
       textAlign(CENTER, CENTER);
-      textSize(30);
+      textSize(20);
       fill("black");
       text("Complete!", w / 2, y + sqSize / 4);
     }
