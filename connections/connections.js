@@ -253,6 +253,12 @@ function draw() {
       textSize(20);
       fill("black");
       text("Complete!", w / 2, y + sqSize / 4);
+    } else if (missesRemaining > 0) {
+      textAlign(CENTER, CENTER);
+      fill("white");
+      rect(w / 2, h - sqSize / 2, 50, 30);
+      fill("black");
+      text("Enter", w / 2, h - sqSize / 2);
     }
   }
 
@@ -263,10 +269,29 @@ function mousePressed() {
   if (missesRemaining > 0) {
     clickX = mouseX;
     clickY = mouseY;
-
-    draw();
+    handleInteracton();
   }
 }
+function touchStarted() {
+  if (missesRemaining > 0) {
+    clickX = touches[0].x;
+    clickY = touches[0].y;
+    handleInteracton();
+  }
+}
+
+const handleInteracton = () => {
+  if (
+    clickX > w / 2 - 25 &&
+    clickX < w / 2 + 25 &&
+    clickY > h - sqSize / 2 - 15 &&
+    clickY < h - sqSize / 2 + 15
+  ) {
+    processSubmit();
+  } else {
+    draw();
+  }
+};
 
 function keyPressed() {
   // console.log("keycode", keyCode);
