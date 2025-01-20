@@ -4,7 +4,7 @@ const solutionColors = {
   2: "#B0C4EF",
   3: "#BA81C5",
 };
-
+let gameInd = 2;
 const solutions = [
   [
     {
@@ -50,8 +50,30 @@ const solutions = [
       color: 3,
     },
   ],
+  [
+    {
+      title: "Anagrams of Lower Haight Streets",
+      ans: new Set(["Gape", "Koa", "Recipe", "Film Role"]),
+      color: 3,
+    },
+    {
+      title: "Things that are circular",
+      ans: new Set(["Plate", "Ball", "Sun", "Watch"]),
+      color: 0,
+    },
+    {
+      title: "Supplies for Yard Prank",
+      ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
+      color: 2,
+    },
+    {
+      title: "Things to Stay Healthy Running",
+      ans: new Set(["Stretch", "Roll", "Lift", "Bike"]),
+      color: 1,
+    },
+  ],
 ];
-let solution = solutions[1];
+let solution = solutions[gameInd];
 
 let guessResult = {
   WRONG: "wrong",
@@ -123,9 +145,27 @@ const boards = [
     "Cover",
     "Plate",
   ],
+  [
+    "Fork",
+    "Lift",
+    "Ball",
+    "Roll",
+    "Film Role",
+    "Sun",
+    "Toilet Paper",
+    "Plate",
+    "Gape",
+    "Egg",
+    "Stretch",
+    "Spray Paint",
+    "Koa",
+    "Watch",
+    "Bike",
+    "Recipe",
+  ],
 ];
 
-let board = boards[1];
+let board = boards[gameInd];
 
 let selected = new Set(); //["1,2", "0,1"]);
 let clickX = null;
@@ -225,25 +265,40 @@ function draw() {
   let numCorrect = 0;
 
   for (let guess of guesses) {
-    textAlign(RIGHT, CENTER);
     x = xStart;
-    if (guess.result === guessResult.CLOSE) {
-      text("1 away", x - sqSize / 2 - margin, y);
-    } else if (guess.result === guessResult.WRONG) {
-      text("X", x - sqSize / 2 - margin, y);
-    } else if (guess.result === guessResult.CORRECT) {
-      text(solution[guess.solution].title, x - sqSize / 2 - margin, y);
+    if (guess.result === guessResult.CORRECT) {
+      // text(solution[guess.solution].title, x - sqSize / 2 - margin, y);
       solutionsGuessed.push(guess.solution);
       numCorrect += 1;
-    }
-    textAlign(CENTER, CENTER);
-    for (let word of guess.guess) {
+
+      textAlign(CENTER, CENTER);
       fill(getColor(guess.result, guess.solution));
-      rect(x, y, sqSize, sqSize);
+      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize);
       fill("black");
-      text(word, x, y);
-      x += sqSize + margin;
+      textSize(16);
+      text(solution[guess.solution].title, w / 2, y - 12);
+      textSize(12);
+      for (let word of guess.guess) {
+        text(word, x, y + 12);
+        x += sqSize + margin;
+      }
+    } else {
+      textAlign(RIGHT, CENTER);
+      if (guess.result === guessResult.CLOSE) {
+        text("1 away", x - sqSize / 2 - margin, y);
+      } else if (guess.result === guessResult.WRONG) {
+        text("X", x - sqSize / 2 - margin, y);
+      }
+      textAlign(CENTER, CENTER);
+      for (let word of guess.guess) {
+        fill(getColor(guess.result, guess.solution));
+        rect(x, y, sqSize, sqSize);
+        fill("black");
+        text(word, x, y);
+        x += sqSize + margin;
+      }
     }
+
     y += sqSize + margin;
   }
 
