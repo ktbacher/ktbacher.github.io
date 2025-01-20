@@ -308,9 +308,9 @@ function draw() {
     } else if (missesRemaining > 0) {
       textAlign(CENTER, CENTER);
       fill("white");
-      rect(w / 2, h - sqSize / 2, 50, 30);
+      rect(w / 2, h - sqSize, 50, 30);
       fill("black");
-      text("Enter", w / 2, h - sqSize / 2);
+      text("Enter", w / 2, h - sqSize);
     }
   }
 
