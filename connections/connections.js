@@ -286,7 +286,8 @@ const handleInteracton = () => {
     clickX > w / 2 - 25 &&
     clickX < w / 2 + 25 &&
     clickY > h - sqSize / 2 - 15 &&
-    clickY < h - sqSize / 2 + 15
+    clickY < h - sqSize / 2 + 15 &&
+    selected.size == 4
   ) {
     processSubmit();
   } else {
@@ -299,8 +300,6 @@ function keyPressed() {
   if (keyCode == 13) {
     if (selected.size == 4) {
       processSubmit();
-    } else {
-      text("X", w / 2, h - 50);
     }
   }
 }
