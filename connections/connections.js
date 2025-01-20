@@ -1,21 +1,57 @@
-let solution = [
-  {
-    title: "Part of Process",
-    ans: new Set(["Cycle", "Phase", "Round", "Stage"]),
-  },
-  {
-    title: "Constellations",
-    ans: new Set(["Cygnus", "Gemini", "Orion", "Pegasus"]),
-  },
-  {
-    title: "Spirals",
-    ans: new Set(["Cyclone", "Galaxy", "Snail", "Sunflower"]),
-  },
-  {
-    title: "Relates to 'ONE'",
-    ans: new Set(["Cyclops", "Monologue", "Solitaire", "Unicycle"]),
-  },
+const solutionColors = {
+  0: "#F9DF6D",
+  1: "#A0C35A",
+  2: "#B0C4EF",
+  3: "#BA81C5",
+};
+
+const solutions = [
+  [
+    {
+      title: "Part of Process",
+      ans: new Set(["Cycle", "Phase", "Round", "Stage"]),
+      color: 0,
+    },
+    {
+      title: "Constellations",
+      ans: new Set(["Cygnus", "Gemini", "Orion", "Pegasus"]),
+      color: 1,
+    },
+    {
+      title: "Spirals",
+      ans: new Set(["Cyclone", "Galaxy", "Snail", "Sunflower"]),
+      color: 2,
+    },
+    {
+      title: "Relates to 'ONE'",
+      ans: new Set(["Cyclops", "Monologue", "Solitaire", "Unicycle"]),
+      color: 3,
+    },
+  ],
+  [
+    {
+      title: "Stab",
+      ans: new Set(["Spike", "Skewer", "Pierce", "Knife"]),
+      color: 0,
+    },
+    {
+      title: "Book Components",
+      ans: new Set(["Page", "Cover", "Binding", "Spine"]),
+      color: 1,
+    },
+    {
+      title: "Rhymes with ate",
+      ans: new Set(["Wait", "Plate", "Eight", "Haight"]),
+      color: 2,
+    },
+    {
+      title: "__ Off",
+      ans: new Set(["Shut", "Fell", "Bake", "Take"]), // Dance, close
+      color: 3,
+    },
+  ],
 ];
+let solution = solutions[1];
 
 let guessResult = {
   WRONG: "wrong",
@@ -50,31 +86,46 @@ const h = window.innerHeight;
 const sqSize = h / 11;
 const margin = 5;
 
-let board = [
-  "Sunflower",
-  "Solitaire",
-  "Stage",
-  "Snail",
-  "Cycle",
-  "Cyclone",
-  "Cyclops",
-  "Cygnus",
-  "Unicycle",
-  "Orion",
-  "Round",
-  "Galaxy",
-  "Pegasus",
-  "Phase",
-  "Monologue",
-  "Gemini",
+const boards = [
+  [
+    "Sunflower",
+    "Solitaire",
+    "Stage",
+    "Snail",
+    "Cycle",
+    "Cyclone",
+    "Cyclops",
+    "Cygnus",
+    "Unicycle",
+    "Orion",
+    "Round",
+    "Galaxy",
+    "Pegasus",
+    "Phase",
+    "Monologue",
+    "Gemini",
+  ],
+  [
+    "Spine",
+    "Skewer",
+    "Take",
+    "Page",
+    "Binding",
+    "Wait",
+    "Fell",
+    "Shut",
+    "Haight",
+    "Knife",
+    "Spike",
+    "Bake",
+    "Eight",
+    "Pierce",
+    "Cover",
+    "Plate",
+  ],
 ];
 
-const solutionColors = {
-  0: "#F9DF6D",
-  1: "#A0C35A",
-  2: "#B0C4EF",
-  3: "#BA81C5",
-};
+let board = boards[1];
 
 let selected = new Set(); //["1,2", "0,1"]);
 let clickX = null;
@@ -90,7 +141,7 @@ function setup() {
 
 function getColor(status, sol) {
   if (status === guessResult.CORRECT) {
-    return solutionColors[sol];
+    return solutionColors[solution[sol].color];
   }
   if (status === guessResult.CLOSE || status === guessResult.WRONG) {
     return "grey";
