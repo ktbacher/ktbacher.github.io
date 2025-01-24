@@ -4,7 +4,7 @@ const solutionColors = {
   2: "#B0C4EF",
   3: "#BA81C5",
 };
-let gameInd = 1;
+let gameInd = 2;
 let completed = false;
 const solutions = [
   [
@@ -45,9 +45,14 @@ const solutions = [
       ans: new Set(["Wait", "Plate", "Eight", "Haight"]),
       color: 2,
     },
+    // {
+    //   title: "__ Off",
+    //   ans: new Set(["Shut", "Fell", "Bake", "Take"]), // Dance, close
+    //   color: 3,
+    // },
     {
-      title: "__ Off",
-      ans: new Set(["Shut", "Fell", "Bake", "Take"]), // Dance, close
+      title: "__ Down",
+      ans: new Set(["Throw", "Fell", "Break", "Take"]), // Dance, close
       color: 3,
     },
   ],
@@ -57,22 +62,54 @@ const solutions = [
       ans: new Set(["Gape", "Koa", "Recipe", "Film Role"]),
       color: 3,
     },
+    // {
+    //   title: "Things that are circular",
+    //   ans: new Set(["Plate", "Ball", "Sun", "Watch"]),
+    //   color: 0,
+    // },
     {
-      title: "Things that are circular",
-      ans: new Set(["Plate", "Ball", "Sun", "Watch"]),
-      color: 0,
+      title: "Circular Disks",
+      ans: new Set(["Plate", "Coin", "Bottle cap", "Watch Face"]),
+      color: 1,
     },
     {
       title: "Supplies for Yard Prank",
       ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
       color: 2,
     },
+    // {
+    //   title: "Activities for Injured Runners",
+    //   ans: new Set(["Stretch", "Roll", "Lift", "Bike"]), // Swim
+    //   color: 1,
+    // },
     {
-      title: "Things to Stay Healthy Running",
-      ans: new Set(["Stretch", "Roll", "Lift", "Bike"]),
-      color: 1,
+      title: "Look (at)",
+      ans: new Set(["Stare", "Gaze", "Glance", "Ogle"]),
+      color: 0,
     },
   ],
+  // [
+  //   {
+  //     title: "Look (at)",
+  //     ans: new Set(["Stare", "Gaze", "Glance", "Ogle"]),
+  //     color: 0,
+  //   },
+  //   {
+  //     title: "Circular Disks",
+  //     ans: new Set(["Plate", "Coin", "Bottle cap", "Watch Face"]),
+  //     color: 1,
+  //   },
+  //   {
+  //     title: "Supplies for Yard Prank",
+  //     ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
+  //     color: 2,
+  //   },
+  //   {
+  //     title: "Activities for Injured Runners",
+  //     ans: new Set(["Stretch", "Roll", "Lift", "Bike"]), // Swim
+  //     color: 3,
+  //   },
+  // ],
 ];
 let solution = solutions[gameInd];
 
@@ -136,11 +173,11 @@ const boards = [
     "Binding",
     "Wait",
     "Fell",
-    "Shut",
+    "Throw",
     "Haight",
     "Knife",
     "Spike",
-    "Bake",
+    "Break",
     "Eight",
     "Pierce",
     "Cover",
@@ -148,20 +185,20 @@ const boards = [
   ],
   [
     "Fork",
-    "Lift",
-    "Ball",
-    "Roll",
+    "Glance",
+    "Coin",
+    "Gaze",
     "Film Role",
-    "Sun",
+    "Bottle cap",
     "Toilet Paper",
     "Plate",
     "Gape",
     "Egg",
-    "Stretch",
+    "Stare",
     "Spray Paint",
     "Koa",
-    "Watch",
-    "Bike",
+    "Watch Face",
+    "Ogle",
     "Recipe",
   ],
 ];
