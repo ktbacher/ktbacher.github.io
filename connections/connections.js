@@ -384,13 +384,7 @@ function draw() {
 
 function mousePressed() {
   if (completed && gameInd < solutions.length - 1) {
-    completed = false;
-    guesses = [];
-    missesRemaining = 4;
-    gameInd += 1;
-    board = boards[gameInd];
-    solution = solutions[gameInd];
-    draw();
+    nextGame();
   } else if (missesRemaining > 0) {
     clickX = mouseX;
     clickY = mouseY;
@@ -398,19 +392,31 @@ function mousePressed() {
   }
 }
 function touchStarted() {
-  if (missesRemaining > 0) {
+  if (completed && gameInd < solutions.length - 1) {
+    nextGame();
+  } else if (missesRemaining > 0) {
     clickX = touches[0].x;
     clickY = touches[0].y;
     handleInteracton();
   }
 }
 
+const nextGame = () => {
+  completed = false;
+  guesses = [];
+  missesRemaining = 4;
+  gameInd += 1;
+  board = boards[gameInd];
+  solution = solutions[gameInd];
+  draw();
+};
+
 const handleInteracton = () => {
   if (
     clickX > w / 2 - 25 &&
     clickX < w / 2 + 25 &&
-    clickY > h - sqSize / 2 - 15 &&
-    clickY < h - sqSize / 2 + 15 &&
+    clickY > h - sqSize - 15 &&
+    clickY < h - sqSize + 15 &&
     selected.size == 4
   ) {
     processSubmit();
