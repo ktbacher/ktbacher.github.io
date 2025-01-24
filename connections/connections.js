@@ -4,7 +4,8 @@ const solutionColors = {
   2: "#B0C4EF",
   3: "#BA81C5",
 };
-let gameInd = 2;
+let gameInd = 1;
+let completed = false;
 const solutions = [
   [
     {
@@ -360,6 +361,15 @@ function draw() {
       textSize(20);
       fill("black");
       text("Complete!", w / 2, y + sqSize / 4);
+      if (gameInd < solutions.length - 1) {
+        textSize(12);
+        text("Click anywhere to continue", w / 2, y + sqSize);
+        completed = true;
+      } else {
+        textSize(30);
+        text("Congrats, you've passed!", w / 2, y + sqSize);
+        completed = true;
+      }
     } else if (missesRemaining > 0) {
       textAlign(CENTER, CENTER);
       fill("white");
@@ -373,7 +383,15 @@ function draw() {
 }
 
 function mousePressed() {
-  if (missesRemaining > 0) {
+  if (completed && gameInd < solutions.length - 1) {
+    completed = false;
+    guesses = [];
+    missesRemaining = 4;
+    gameInd += 1;
+    board = boards[gameInd];
+    solution = solutions[gameInd];
+    draw();
+  } else if (missesRemaining > 0) {
     clickX = mouseX;
     clickY = mouseY;
     handleInteracton();
