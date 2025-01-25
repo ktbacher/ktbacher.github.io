@@ -4,6 +4,9 @@ const solutionColors = {
   2: "#B0C4EF",
   3: "#BA81C5",
 };
+const sqColor = "#EFEFE7";
+const selSqColor = "#5A594F";
+const guessedColor = "#D5D5D5";
 let gameInd = 0;
 let completed = false;
 const solutions = [
@@ -90,7 +93,7 @@ const w = window.innerWidth;
 const h = window.innerHeight;
 
 const sqSize = h / 10.5;
-const margin = 5;
+const margin = 6;
 
 const boards = [
   [
@@ -168,9 +171,9 @@ function getColor(status, sol) {
     return solutionColors[solution[sol].color];
   }
   if (status === guessResult.CLOSE || status === guessResult.WRONG) {
-    return "grey";
+    return guessedColor;
   }
-  return "white";
+  return sqColor;
 }
 
 function processClick(cx, cy, cordX, cordY) {
@@ -257,7 +260,7 @@ function draw() {
 
       textAlign(CENTER, CENTER);
       fill(getColor(guess.result, guess.solution));
-      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize);
+      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize, 5);
       fill("black");
       textSize(16);
       text(solution[guess.solution].title, w / 2, y - 12);
@@ -276,7 +279,7 @@ function draw() {
       textAlign(CENTER, CENTER);
       for (let word of guess.guess) {
         fill(getColor(guess.result, guess.solution));
-        rect(x, y, sqSize, sqSize);
+        rect(x, y, sqSize, sqSize, 5);
         fill("black");
         text(word, x, y);
         x += sqSize + margin;
@@ -302,7 +305,7 @@ function draw() {
       textAlign(CENTER, CENTER);
       let sol = solution[solInd];
       fill(getColor(guessResult.CORRECT, solInd));
-      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize);
+      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize, 5);
       fill("black");
       textSize(16);
       text(sol.title, w / 2, y - 12);
@@ -324,13 +327,18 @@ function draw() {
           processClick(x, y, i, j);
 
         if (selected.has(pos)) {
-          fill("lightgrey");
+          fill(selSqColor);
+          sqCol = selSqColor;
+          textCol = "white";
         } else {
-          fill("white");
+          fill(sqColor);
+          sqCol = sqColor;
+          textCol = "black";
         }
-
-        rect(x, y, sqSize, sqSize);
-        fill("black");
+        strokeWeight(0);
+        fill(sqCol);
+        rect(x, y, sqSize, sqSize, 5);
+        fill(textCol);
         text(item, x, y);
         x += sqSize + margin;
       }
@@ -357,9 +365,12 @@ function draw() {
         completed = true;
       }
     } else if (missesRemaining > 0) {
+      strokeWeight(1);
+      stroke("black");
       textAlign(CENTER, CENTER);
       fill("white");
-      rect(w / 2, h - sqSize, 50, 30);
+      rect(w / 2, h - sqSize, 60, 40, 20);
+      strokeWeight(0);
       fill("black");
       text("Submit", w / 2, h - sqSize);
     }
@@ -412,10 +423,10 @@ const nextGame = () => {
 
 const handleInteracton = () => {
   if (
-    clickX > w / 2 - 25 &&
-    clickX < w / 2 + 25 &&
-    clickY > h - sqSize - 15 &&
-    clickY < h - sqSize + 15 &&
+    clickX > w / 2 - 30 &&
+    clickX < w / 2 + 30 &&
+    clickY > h - sqSize - 20 &&
+    clickY < h - sqSize + 20 &&
     selected.size == 4
   ) {
     processSubmit();
