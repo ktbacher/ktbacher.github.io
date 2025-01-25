@@ -37,7 +37,7 @@ const solutions = [
     },
     {
       title: "Circular Objects",
-      ans: ["Plate", "Bottle cap", "Coin", "Watch Face"],
+      ans: ["Plate", "Watch Face", "Coin", "Bottle cap"],
       color: 1,
     },
     {
@@ -344,7 +344,7 @@ function draw() {
       textAlign(CENTER, CENTER);
       textSize(20);
       fill("black");
-      text("Complete!", w / 2, y + sqSize / 4);
+      text("Completed puzzle #" + (gameInd + 1) + "!", w / 2, y + sqSize / 4);
       if (gameInd < solutions.length - 1) {
         textSize(12);
         text("Click anywhere to continue", w / 2, y + sqSize);
