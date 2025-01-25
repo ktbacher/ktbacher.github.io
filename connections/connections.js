@@ -10,7 +10,7 @@ const solutions = [
   [
     {
       title: "Puncture",
-      ans: ["Impale", "Skewer", "Pierce", "Stab"],
+      ans: ["Pierce", "Impale", "Skewer", "Stab"],
       color: 0,
     },
     {
@@ -19,18 +19,13 @@ const solutions = [
       color: 1,
     },
     {
-      title: "Rhymes with Ate",
-      ans: ["Wait", "Plate", "Eight", "Haight"],
+      title: "Lumberjack Actions",
+      ans: ["Fell", "Trim", "Plane", "Stack"],
       color: 2,
     },
-    // {
-    //   title: "__ Off",
-    //   ans: new Set(["Shut", "Fell", "Bake", "Take"]), // Dance, close
-    //   color: 3,
-    // },
     {
-      title: "__ Down",
-      ans: ["Throw", "Fell", "Break", "Take"], // Dance, close
+      title: "Rhymes with Ate",
+      ans: ["Haight", "Wait", "Plate", "Eight"],
       color: 3,
     },
   ],
@@ -42,7 +37,7 @@ const solutions = [
     },
     {
       title: "Circular Objects",
-      ans: ["Plate", "Coin", "Bottle cap", "Watch Face"],
+      ans: ["Plate", "Bottle cap", "Coin", "Watch Face"],
       color: 1,
     },
     {
@@ -101,16 +96,16 @@ const boards = [
   [
     "Spine",
     "Skewer",
-    "Take",
+    "Trim",
     "Page",
     "Binding",
     "Wait",
     "Fell",
     "Impale",
     "Haight",
-    "Throw",
+    "Plane",
     "Stab",
-    "Break",
+    "Stack",
     "Eight",
     "Pierce",
     "Cover",
