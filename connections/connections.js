@@ -9,8 +9,8 @@ let completed = false;
 const solutions = [
   [
     {
-      title: "Stab",
-      ans: new Set(["Spike", "Skewer", "Pierce", "Knife"]),
+      title: "Puncture",
+      ans: new Set(["Impale", "Skewer", "Pierce", "Stab"]),
       color: 0,
     },
     {
@@ -106,10 +106,10 @@ const boards = [
     "Binding",
     "Wait",
     "Fell",
-    "Throw",
+    "Impale",
     "Haight",
-    "Knife",
-    "Spike",
+    "Throw",
+    "Stab",
     "Break",
     "Eight",
     "Pierce",
