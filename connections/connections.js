@@ -292,9 +292,9 @@ function draw() {
   if (missesRemaining <= 0) {
     completed = true;
     textSize(12);
-    text("Fail!  Click to restart. Solution:", w / 2, y);
+    text("Fail!  Click to restart. Solution:", w / 2, y - sqSize / 2 + 12);
 
-    y += sqSize + margin;
+    y += margin * 3 + 12;
 
     solutionsRemaining = [0, 1, 2, 3].filter(
       (solInd) => !solutionsGuessed.includes(solInd)
@@ -357,11 +357,11 @@ function draw() {
       text("Completed puzzle #" + (gameInd + 1) + "!", w / 2, y + sqSize / 4);
       if (gameInd < solutions.length - 1) {
         textSize(12);
-        text("Click anywhere to continue", w / 2, y + sqSize);
+        text("Click anywhere to continue", w / 2, y + sqSize / 2);
         completed = true;
       } else {
         textSize(30);
-        text("Congrats, you've passed!", w / 2, y + sqSize);
+        text("Congrats, you've passed!", w / 2, y + sqSize / 2);
         completed = true;
       }
     } else if (missesRemaining > 0) {
