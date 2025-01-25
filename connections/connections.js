@@ -4,31 +4,9 @@ const solutionColors = {
   2: "#B0C4EF",
   3: "#BA81C5",
 };
-let gameInd = 2;
+let gameInd = 0;
 let completed = false;
 const solutions = [
-  [
-    {
-      title: "Part of Process",
-      ans: new Set(["Cycle", "Phase", "Round", "Stage"]),
-      color: 0,
-    },
-    {
-      title: "Constellations",
-      ans: new Set(["Cygnus", "Gemini", "Orion", "Pegasus"]),
-      color: 1,
-    },
-    {
-      title: "Spirals",
-      ans: new Set(["Cyclone", "Galaxy", "Snail", "Sunflower"]),
-      color: 2,
-    },
-    {
-      title: "Relates to 'ONE'",
-      ans: new Set(["Cyclops", "Monologue", "Solitaire", "Unicycle"]),
-      color: 3,
-    },
-  ],
   [
     {
       title: "Stab",
@@ -62,13 +40,8 @@ const solutions = [
       ans: new Set(["Gape", "Koa", "Recipe", "Film Role"]),
       color: 3,
     },
-    // {
-    //   title: "Things that are circular",
-    //   ans: new Set(["Plate", "Ball", "Sun", "Watch"]),
-    //   color: 0,
-    // },
     {
-      title: "Circular Disks",
+      title: "Circular Objects",
       ans: new Set(["Plate", "Coin", "Bottle cap", "Watch Face"]),
       color: 1,
     },
@@ -77,39 +50,34 @@ const solutions = [
       ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
       color: 2,
     },
-    // {
-    //   title: "Activities for Injured Runners",
-    //   ans: new Set(["Stretch", "Roll", "Lift", "Bike"]), // Swim
-    //   color: 1,
-    // },
     {
       title: "Look (at)",
       ans: new Set(["Stare", "Gaze", "Glance", "Ogle"]),
       color: 0,
     },
   ],
-  // [
-  //   {
-  //     title: "Look (at)",
-  //     ans: new Set(["Stare", "Gaze", "Glance", "Ogle"]),
-  //     color: 0,
-  //   },
-  //   {
-  //     title: "Circular Disks",
-  //     ans: new Set(["Plate", "Coin", "Bottle cap", "Watch Face"]),
-  //     color: 1,
-  //   },
-  //   {
-  //     title: "Supplies for Yard Prank",
-  //     ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
-  //     color: 2,
-  //   },
-  //   {
-  //     title: "Activities for Injured Runners",
-  //     ans: new Set(["Stretch", "Roll", "Lift", "Bike"]), // Swim
-  //     color: 3,
-  //   },
-  // ],
+  [
+    {
+      title: "Purpose",
+      ans: new Set(["Target", "Motive", "Aim", "Objective"]),
+      color: 0,
+    },
+    {
+      title: "Beginning of SF Neighborhoods",
+      ans: new Set(["Hay", "Sun", "Miss", "Rich"]),
+      color: 3,
+    },
+    {
+      title: "Trolls in Duboce Half III",
+      ans: new Set(["Connect Four", "Math", "Theater", "Mission: Impos."]),
+      color: 2,
+    },
+    {
+      title: "Activities for Injured Runners",
+      ans: new Set(["Stretch", "Roll", "Swim", "Bike"]),
+      color: 1,
+    },
+  ],
 ];
 let solution = solutions[gameInd];
 
@@ -119,23 +87,6 @@ let guessResult = {
   CORRECT: "correct",
 };
 
-// let guesses = [
-//   {
-//     result: guessResult.CLOSE,
-//     guess: ["Cygnus", "Gemini", "Orion", "Solitaire"],
-//     solution: null,
-//   },
-//   {
-//     result: guessResult.WRONG,
-//     guess: ["Sunflower", "Solitaire", "Stage", "Snail"],
-//     solution: null,
-//   },
-//   {
-//     result: guessResult.CORRECT,
-//     guess: ["Cyclops", "Monologue", "Solitaire", "Unicycle"],
-//     solution: 4,
-//   },
-// ];
 let guesses = [];
 
 let missesRemaining = 4;
@@ -143,28 +94,10 @@ let missesRemaining = 4;
 const w = window.innerWidth;
 const h = window.innerHeight;
 
-const sqSize = h / 11;
+const sqSize = h / 10.5;
 const margin = 5;
 
 const boards = [
-  [
-    "Sunflower",
-    "Solitaire",
-    "Stage",
-    "Snail",
-    "Cycle",
-    "Cyclone",
-    "Cyclops",
-    "Cygnus",
-    "Unicycle",
-    "Orion",
-    "Round",
-    "Galaxy",
-    "Pegasus",
-    "Phase",
-    "Monologue",
-    "Gemini",
-  ],
   [
     "Spine",
     "Skewer",
@@ -200,6 +133,24 @@ const boards = [
     "Watch Face",
     "Ogle",
     "Recipe",
+  ],
+  [
+    "Connect Four",
+    "Swim",
+    "Math",
+    "Sun",
+    "Rich",
+    "Aim",
+    "Hay",
+    "Mission: Impos.",
+    "Roll",
+    "Target",
+    "Bike",
+    "Objective",
+    "Miss",
+    "Motive",
+    "Stretch",
+    "Theater",
   ],
 ];
 
@@ -351,15 +302,16 @@ function draw() {
 
     solutionsRemaining.forEach((solInd) => {
       x = xStart;
-      textAlign(RIGHT, CENTER);
+      textAlign(CENTER, CENTER);
       let sol = solution[solInd];
-      text(sol.title, x - sqSize, y);
+      fill(getColor(guessResult.CORRECT, solInd));
+      rect(w / 2, y, sqSize * 4 + margin * 3, sqSize);
+      fill("black");
+      textSize(16);
+      text(sol.title, w / 2, y - 12);
+      textSize(12);
       sol.ans.forEach((item) => {
-        textAlign(CENTER, CENTER);
-        fill(getColor(guessResult.CORRECT, solInd));
-        rect(x, y, sqSize, sqSize);
-        fill("black");
-        text(item, x, y);
+        text(item, x, y + 12);
         x += sqSize + margin;
       });
       y += sqSize + margin;
@@ -463,7 +415,6 @@ const handleInteracton = () => {
 };
 
 function keyPressed() {
-  // console.log("keycode", keyCode);
   if (keyCode == 13) {
     if (selected.size == 4) {
       processSubmit();
