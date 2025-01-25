@@ -215,6 +215,7 @@ function processSubmit() {
       solution: solNum,
     };
     board = board.filter((word) => ![...guess].includes(word));
+    selected = new Set();
   } else if (closest == 3) {
     result = {
       result: guessResult.CLOSE,
@@ -231,7 +232,6 @@ function processSubmit() {
     missesRemaining -= 1;
   }
   guesses.push(result);
-  selected = new Set();
 
   draw();
 }
