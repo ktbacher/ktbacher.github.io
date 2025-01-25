@@ -19,13 +19,13 @@ const solutions = [
       color: 1,
     },
     {
-      title: "Lumberjack Actions",
-      ans: ["Fell", "Trim", "Plane", "Stack"],
+      title: "Rhymes with Ate",
+      ans: ["Haight", "Wait", "Plate", "Eight"],
       color: 2,
     },
     {
-      title: "Rhymes with Ate",
-      ans: ["Haight", "Wait", "Plate", "Eight"],
+      title: "___ Off",
+      ans: ["Fell", "Knock", "Bake", "Shut"],
       color: 3,
     },
   ],
@@ -96,16 +96,16 @@ const boards = [
   [
     "Spine",
     "Skewer",
-    "Trim",
+    "Knock",
     "Page",
     "Binding",
     "Wait",
     "Fell",
     "Impale",
     "Haight",
-    "Plane",
+    "Bake",
     "Stab",
-    "Stack",
+    "Shut",
     "Eight",
     "Pierce",
     "Cover",
@@ -287,7 +287,9 @@ function draw() {
   }
 
   if (missesRemaining <= 0) {
-    text("Game over! Solution:", w / 2, y);
+    completed = true;
+    textSize(12);
+    text("Fail!  Click to restart. Solution:", w / 2, y);
 
     y += sqSize + margin;
 
@@ -367,7 +369,9 @@ function draw() {
 }
 
 function mousePressed() {
-  if (completed && gameInd < solutions.length - 1) {
+  if (completed && missesRemaining <= 0) {
+    resetGame();
+  } else if (completed && gameInd < solutions.length - 1) {
     nextGame();
   } else if (missesRemaining > 0) {
     clickX = mouseX;
@@ -376,7 +380,9 @@ function mousePressed() {
   }
 }
 function touchStarted() {
-  if (completed && gameInd < solutions.length - 1) {
+  if (completed && missesRemaining <= 0) {
+    resetGame();
+  } else if (completed && gameInd < solutions.length - 1) {
     nextGame();
   } else if (missesRemaining > 0) {
     clickX = touches[0].x;
@@ -384,6 +390,15 @@ function touchStarted() {
     handleInteracton();
   }
 }
+
+const resetGame = () => {
+  completed = false;
+  guesses = [];
+  missesRemaining = 4;
+  selected = new Set();
+  board = boards[gameInd];
+  draw();
+};
 
 const nextGame = () => {
   completed = false;
