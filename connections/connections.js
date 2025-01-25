@@ -10,17 +10,17 @@ const solutions = [
   [
     {
       title: "Puncture",
-      ans: new Set(["Impale", "Skewer", "Pierce", "Stab"]),
+      ans: ["Impale", "Skewer", "Pierce", "Stab"],
       color: 0,
     },
     {
       title: "Book Components",
-      ans: new Set(["Page", "Cover", "Binding", "Spine"]),
+      ans: ["Page", "Cover", "Binding", "Spine"],
       color: 1,
     },
     {
-      title: "Rhymes with ate",
-      ans: new Set(["Wait", "Plate", "Eight", "Haight"]),
+      title: "Rhymes with Ate",
+      ans: ["Wait", "Plate", "Eight", "Haight"],
       color: 2,
     },
     // {
@@ -30,52 +30,52 @@ const solutions = [
     // },
     {
       title: "__ Down",
-      ans: new Set(["Throw", "Fell", "Break", "Take"]), // Dance, close
+      ans: ["Throw", "Fell", "Break", "Take"], // Dance, close
       color: 3,
     },
   ],
   [
     {
-      title: "Anagrams of Lower Haight Streets",
-      ans: new Set(["Gape", "Koa", "Recipe", "Film Role"]),
-      color: 3,
+      title: "Look (at)",
+      ans: ["Stare", "Gaze", "Glance", "Ogle"],
+      color: 0,
     },
     {
       title: "Circular Objects",
-      ans: new Set(["Plate", "Coin", "Bottle cap", "Watch Face"]),
+      ans: ["Plate", "Coin", "Bottle cap", "Watch Face"],
       color: 1,
     },
     {
       title: "Supplies for Yard Prank",
-      ans: new Set(["Egg", "Toilet Paper", "Fork", "Spray Paint"]),
+      ans: ["Egg", "Toilet Paper", "Fork", "Spray Paint"],
       color: 2,
     },
     {
-      title: "Look (at)",
-      ans: new Set(["Stare", "Gaze", "Glance", "Ogle"]),
-      color: 0,
+      title: "Anagrams of Lower Haight Streets",
+      ans: ["Gape", "Koa", "Recipe", "Film Role"],
+      color: 3,
     },
   ],
   [
     {
       title: "Purpose",
-      ans: new Set(["Target", "Motive", "Aim", "Objective"]),
+      ans: ["Target", "Motive", "Aim", "Objective"],
       color: 0,
     },
     {
-      title: "Beginning of SF Neighborhoods",
-      ans: new Set(["Hay", "Sun", "Miss", "Rich"]),
-      color: 3,
+      title: "Activities for Injured Runners",
+      ans: ["Stretch", "Roll", "Swim", "Bike"],
+      color: 1,
     },
     {
       title: "Trolls in Duboce Half III",
-      ans: new Set(["Connect Four", "Math", "Theater", "Mission: Impos."]),
+      ans: ["Connect Four", "Math", "Mission: Impos.", "Theater"],
       color: 2,
     },
     {
-      title: "Activities for Injured Runners",
-      ans: new Set(["Stretch", "Roll", "Swim", "Bike"]),
-      color: 1,
+      title: "Beginning of SF Neighborhoods",
+      ans: ["Hay", "Sun", "Miss", "Rich"],
+      color: 3,
     },
   ],
 ];
@@ -206,7 +206,7 @@ function processSubmit() {
     let sol = solution[i];
 
     // set intersection
-    let closeness = [...guess].filter((word) => sol.ans.has(word)).length;
+    let closeness = [...guess].filter((word) => sol.ans.includes(word)).length;
     if (closeness > closest) {
       solNum = i;
       closest = closeness;
@@ -267,7 +267,7 @@ function draw() {
       textSize(16);
       text(solution[guess.solution].title, w / 2, y - 12);
       textSize(12);
-      for (let word of guess.guess) {
+      for (let word of solution[guess.solution].ans) {
         text(word, x, y + 12);
         x += sqSize + margin;
       }
@@ -364,7 +364,7 @@ function draw() {
       fill("white");
       rect(w / 2, h - sqSize, 50, 30);
       fill("black");
-      text("Enter", w / 2, h - sqSize);
+      text("Submit", w / 2, h - sqSize);
     }
   }
 
